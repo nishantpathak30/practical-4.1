@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Products List</title>
+    <!-- React and ReactDOM -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <!-- Babel for JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        margin-top: 40px;
+      }
+
+      .products-container {
+        border: 1px solid #000;
+        padding: 20px;
+        width: 800px;
+        text-align: center;
+      }
+
+      .products-container h2 {
+        margin-bottom: 20px;
+      }
+
+      .product-list {
+        display: flex;
+        justify-content: space-around;
+        gap: 20px;
+      }
+
+      .product-card {
+        border: 1px solid #ccc;
+        padding: 16px;
+        border-radius: 8px;
+        width: 200px;
+        box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);
+        text-align: center;
+      }
+
+      .in-stock {
+        color: green;
+        font-weight: bold;
+      }
+
+      .out-stock {
+        color: red;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+      // ProductCard component
+      const ProductCard = ({ name, price, inStock }) => (
+        <div className="product-card">
+          <h3>{name}</h3>
+          <p>Price: ${price}</p>
+          <p className={inStock ? "in-stock" : "out-stock"}>
+            Status: {inStock ? "In Stock" : "Out of Stock"}
+          </p>
+        </div>
+      );
+
+      // Main App component
+      const App = () => {
+        const products = [
+          { name: "Wireless Mouse", price: 25.99, inStock: true },
+          { name: "Keyboard", price: 45.5, inStock: false },
+          { name: "Monitor", price: 199.99, inStock: true },
+        ];
+
+        return (
+          <div className="products-container">
+            <h2>Products List</h2>
+            <div className="product-list">
+              {products.map((product, index) => (
+                <ProductCard
+                  key={index}
+                  name={product.name}
+                  price={product.price}
+                  inStock={product.inStock}
+                />
+              ))}
+            </div>
+          </div>
+        );
+      };
+
+      // Render App
+      const root = ReactDOM.createRoot(document.getElementById("root"));
+      root.render(<App />);
+    </script>
+  </body>
+</html>
